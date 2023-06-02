@@ -2,7 +2,7 @@ import { html, LitElement } from "lit";
 import { debounceTime, filter, tap } from "rxjs";
 
 import { productsMediator } from "../../services/productsMediator.service";
-import { favoriteService } from "./../../services/favorite.service";
+import { favoriteService } from "./../../services/favorite-service/favorite.service";
 import { shoppingCartService } from '/src/app/features/shopping-cart/services/shopping-cart.service';
 
 import "./home-browse.style.css";
