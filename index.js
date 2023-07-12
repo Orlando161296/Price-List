@@ -2,7 +2,7 @@
 import { AppComponent } from "./src/app.component";
 
 // Servicios
-import { localStorageShoppingCartService } from "./src/app/features/shopping-cart/services/localstorage-shopping-cart.service";
+import { localStorageShoppingCartService } from "./src/app/core/services/shopping-cart-service/localstorage-shopping-cart.service";
 //Navbar
 import { NavbarComponent } from "./src/app/core/components/navbar/navbar.component";
 import { IconShoppingCart } from "./src/app/core/components/navbar/components/icon-shopping-cart/icon-shopping-cart.component";

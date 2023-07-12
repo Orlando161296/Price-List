@@ -3,7 +3,7 @@ import { LitElement, html } from "lit";
 import './categories-browse.styles.css';
 import { productsMediator } from '/src/app/core/services/productsMediator.service'
 import { categoriesBrowseState } from "./services/categorie-browse-state.service";
-import { shoppingCartService } from '/src/app/features/shopping-cart/services/shopping-cart.service';
+import { shoppingCartService } from '../../core/services/shopping-cart-service/shopping-cart.service';
 import { favoriteService } from "../../core/services/favorite-service/favorite.service";
 import { categoriesList } from './categories.list';
 

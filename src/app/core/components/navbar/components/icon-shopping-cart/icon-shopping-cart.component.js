@@ -2,7 +2,7 @@ import { Router } from "@vaadin/router";
 import { html, css, LitElement } from "lit";
 import { tap } from "rxjs";
 
-import { shoppingCartService } from '/src/app/features/shopping-cart/services/shopping-cart.service';
+import { shoppingCartService } from '../../../../services/shopping-cart-service/shopping-cart.service';
 import './icon-shopping-cart.style.css';
 
 export class IconShoppingCart extends LitElement {
