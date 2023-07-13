@@ -1,13 +1,11 @@
 import { BehaviorSubject, tap, of } from 'rxjs';
 
-import { kanaService } from './kana.service';
+import { kanaService } from './kana-service/kana.service';
 
 class ProductsMediator {
 
   constructor() {
-
     this.kanaSrv = kanaService;
-    
     this.listProduct = [];
     this.limit = 0;
     this.paginationProducts$ = new BehaviorSubject(this.listProduct);

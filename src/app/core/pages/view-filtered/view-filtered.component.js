@@ -2,8 +2,8 @@ import { html, LitElement } from "lit";
 import { filter, map, tap } from "rxjs";
 
 import { productsMediator } from "../../services/productsMediator.service";
-import { favoriteService } from "../../services/favorite.service";
-import { shoppingCartService } from '/src/app/features/shopping-cart/services/shopping-cart.service';
+import { favoriteService } from "../../services/favorite-service/favorite.service";
+import { shoppingCartService } from '../../../core/services/shopping-cart-service/shopping-cart.service';
 
 import "./view-filtered.styles.css";
 

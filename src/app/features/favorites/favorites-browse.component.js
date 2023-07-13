@@ -1,8 +1,8 @@
 import { LitElement, html, css } from "lit";
 import { Router } from "@vaadin/router";
 
-import { favoriteService } from "../../core/services/favorite.service";
-import { shoppingCartService } from '../shopping-cart/services/shopping-cart.service'
+import { favoriteService } from "../../core/services/favorite-service/favorite.service";
+import { shoppingCartService } from '../../core/services/shopping-cart-service/shopping-cart.service'
 
 import './favorites-browse.styles.css';
 

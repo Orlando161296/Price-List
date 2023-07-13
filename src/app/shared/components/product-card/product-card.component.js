@@ -1,7 +1,7 @@
 import { html, LitElement } from "lit";
 
-import { shoppingCartService } from "../../../features/shopping-cart/services/shopping-cart.service";
-import { favoriteService } from "../../../core/services/favorite.service";
+import { shoppingCartService } from "../../../core/services/shopping-cart-service/shopping-cart.service";
+import { favoriteService } from "../../../core/services/favorite-service/favorite.service";
 import './product-card.style.css';
 
 export class ProductCard extends LitElement {
