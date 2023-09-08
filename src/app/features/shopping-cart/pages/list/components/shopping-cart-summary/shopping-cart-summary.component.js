@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 
-import { shoppingCartService } from '/src/app/features/shopping-cart/services/shopping-cart.service';
+import { shoppingCartService } from '../../../../../../core/services/shopping-cart-service/shopping-cart.service';
 import './shopping-cart-summary.style.css';
 import { tap } from 'rxjs';
  

@@ -2,7 +2,7 @@ import { LitElement, html, css } from "lit";
 import { tap, Subject, takeUntil, mergeMap, takeWhile } from "rxjs";
 import { Router } from "@vaadin/router";
 
-import { shoppingCartService } from '/src/app/features/shopping-cart/services/shopping-cart.service';
+import { shoppingCartService } from '../../../../core/services/shopping-cart-service/shopping-cart.service';
 import { kanaService } from "../../../../core/services/kana-service/kana.service";
 import './shopping-cart-list.style.css';
 

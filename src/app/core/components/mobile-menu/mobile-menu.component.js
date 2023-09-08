@@ -2,7 +2,7 @@ import { Router } from "@vaadin/router";
 import { html, LitElement } from "lit";
 import { tap } from "rxjs";
 
-import { shoppingCartService } from '/src/app/features/shopping-cart/services/shopping-cart.service';
+import { shoppingCartService } from '../../services/shopping-cart-service/shopping-cart.service';
 // Import de las hojas de estilo para este componente
 import './mobile-menu.styles.css';
 
