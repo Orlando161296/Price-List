@@ -1,9 +1,11 @@
-import { LitElement, html, css } from "lit";
-import { tap, Subject, takeUntil, mergeMap, takeWhile } from "rxjs";
+import { LitElement, html } from "lit";
+import { tap, Subject, takeUntil, mergeMap, filter } from "rxjs";
 import { Router } from "@vaadin/router";
 
 import { shoppingCartService } from '../../../../core/services/shopping-cart-service/shopping-cart.service';
 import { kanaService } from "../../../../core/services/kana-service/kana.service";
+import { productsMediator } from "../../../../core/services/productsMediator.service";
+
 import './shopping-cart-list.style.css';
 
 export class ShoppingCartList extends LitElement {
@@ -15,8 +17,10 @@ export class ShoppingCartList extends LitElement {
     super();
     this.shoppingCartSrv = shoppingCartService;
     this.kanaSrv = kanaService;
+    this.productsMediator = productsMediator;
 
     this.list = [];
+    this.loader = false;
     this.ammount = 0;
     this.dolarValue = 0;
     this.divisaValue = 0;
@@ -38,6 +42,14 @@ export class ShoppingCartList extends LitElement {
         tap(() => this.requestUpdate()),
       )
       .subscribe();
+
+    this.productsMediator.paginationProducts$
+      .pipe(
+        filter(response => response.length > 0),
+        tap(() => this.loader = true),
+        tap(() => this.requestUpdate()),
+      )
+      .subscribe();
   }
 
   render() {
@@ -46,53 +58,64 @@ export class ShoppingCartList extends LitElement {
         <i class="material-icons" @click=${this.goBack}>arrow_back</i>
         <span>Mi Carrito</span>
       </div>
-      <div class='shopping-cart-container'>
+      ${(this.loader)
+        ? html`
+          <div class='shopping-cart-container'>
         
-        <div class='shopping-cart-detail'>
-          ${this.list.length > 0
-            ? this.list.map(product => {
-              return html`
-                <shopping-cart-detail 
-                  .product=${product}
-                  divisaValue=${this.divisaValue}
-                  @removeProduct=${this.removeProduct}
-                  @quantityChange=${this.productToShoppingCart}
-                >
-                </shopping-cart-detail>`;
-              })
-            : html`<h1 class="shopping-cart-empty">No hay productos en el carrito aún.</h1>`
-          }
-          ${this.list.length > 0
-            ? html`<a @click='${this.cleanList}'>Limpiar Lista</a>`
-            : html``
-          }
-        </div>
+            <div class='shopping-cart-detail'>
+              ${this.list.length > 0
+                ? this.list.map(product => {
+                  return html`
+                    <shopping-cart-detail 
+                      .product=${this.getProduct(product)}
+                      divisaValue=${this.divisaValue}
+                      @removeProduct=${this.removeProduct}
+                      @quantityChange=${this.productToShoppingCart}
+                    >
+                    </shopping-cart-detail>`;
+                  })
+                : html`<h1 class="shopping-cart-empty">No hay productos en el carrito aún.</h1>`
+              }
+              ${this.list.length > 0
+                ? html`<a @click='${this.cleanList}'>Limpiar Lista</a>`
+                : html``
+              }
+            </div>
 
-        <div class='shopping-cart-summary'>
-          <shopping-cart-summary 
-            dolarValue=${this.dolarValue}
-            ammount=${this.ammount}
-          ></shopping-cart-summary>
-          ${this.list.length > 0
-            ? html`
-              <div class='shopping-cart-options'>
-                <a 
-                  @click=${this.shareList}
-                  href="https://api.whatsapp.com/send?text=www.ceco-market.web.app/shopping-cart/share/${this.shareUrl}"
-                  data-action="share/whatsapp/share"
-                  target="_blank"
-                >
-                  Compartir
-                </a>
-              </div>
-            `
-            : html``
-          }
-        </div>
+            <div class='shopping-cart-summary'>
+              <shopping-cart-summary 
+                dolarValue=${this.dolarValue}
+                ammount=${this.ammount}
+              ></shopping-cart-summary>
+              ${this.list.length > 0
+                ? html`
+                  <div class='shopping-cart-options'>
+                    <a 
+                      @click=${this.shareList}
+                      href="https://api.whatsapp.com/send?text=www.ceco-market.web.app/shopping-cart/share/${this.shareUrl}"
+                      data-action="share/whatsapp/share"
+                      target="_blank"
+                    >
+                      Compartir
+                    </a>
+                  </div>
+                `
+                : html``
+              }
+            </div>
 
-      </div>
+          </div>
+        `
+        : html`<loader-component></loader-component>`
+      }
       <footer-component></footer-component>
     `;
+  }
+
+  getProduct(product) {
+    const productKana = this.productsMediator.getProductById(product.id);
+    productKana.quantity = product.quantity
+    return productKana;
   }
 
   calculatePricesToUSD() {
