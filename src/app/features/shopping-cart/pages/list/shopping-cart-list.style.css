@@ -3,7 +3,7 @@
     display: flex;
     gap: 20px;
     padding: 20px;
-    min-height: calc(100vh - 70px - 341px);
+    min-height: calc(100vh - 85px - 271px);
 }
 
 .shopping-cart-detail {
