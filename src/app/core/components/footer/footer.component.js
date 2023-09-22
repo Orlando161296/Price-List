@@ -45,25 +45,25 @@ export class FooterComponent extends LitElement {
                   id="social-icons"
                   href="https://www.facebook.com/RedCecosesola/"
                   target="_blank"
-                  class="fa fa-facebook"
-                ></a>
-                <a
-                  id="social-icons"
-                  href="https://www.youtube.com/channel/UC4Z6igtx966wHbfeumY9UwA"
-                  target="_blank"
-                  class="fa fa-twitter"
-                ></a>
-                <a
-                  id="social-icons"
-                  href="https://www.instagram.com/redcecosesola/"
-                  target="_blank"
-                  class="fa fa-instagram"   
+                  class="fa fa-facebook fa-2x"
                 ></a>
                 <a
                   id="social-icons"
                   href="https://twitter.com/redcecosesola"
                   target="_blank"
-                  class="fa fa-youtube"
+                  class="fa fa-twitter fa-2x"
+                ></a>
+                <a
+                  id="social-icons"
+                  href="https://www.instagram.com/redcecosesola/"
+                  target="_blank"
+                  class="fa fa-instagram fa-2x"   
+                ></a>
+                <a
+                  id="social-icons"
+                  href="https://www.youtube.com/channel/UC4Z6igtx966wHbfeumY9UwA"
+                  target="_blank"
+                  class="fa fa-youtube fa-2x"
                 ></a>
                 <a
                   id="social-icons"
@@ -71,6 +71,14 @@ export class FooterComponent extends LitElement {
                   target="_blank"
                   class="fa fa-telegram fa-2x"
                 ></a>
+                <!-- ivoox -->
+                <a
+                  id="social-icons"
+                  href="https://ibb.co/yF28tX2"
+                  target="_blank"
+                 
+                 
+                ><img src='https://svgshare.com/i/6vP.svg' title='ivoox-01' /></a>
                 <a
                   id="social-icons"
                   href="https://www.youtube.com/channel/UC4Z6igtx966wHbfeumY9UwA"
@@ -82,24 +90,8 @@ export class FooterComponent extends LitElement {
 
               </div>
 
-              <figure>
-                <a
-                  id="form"
-                  href="https://forms.gle/APaFDevGbqwiF8ts9"
-                  target="_blank"
-                  ><p id="text-form">Tu Opinion es importante , Evaluanos</p>
-                  <div id="btn-form--container">
-                    <button class="pulse">
-                      <i
-                        style="font-size: 40px; color: #f4a534 "
-                        class="material-icons"
-                        id="icon-form"
-                        >arrow_circle_right</i
-                      >
-                    </button>
-                  </div>
-                </a>
-              </figure>
+            
+
             </div>
           </div>
         </div>
