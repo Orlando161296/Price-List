@@ -1,29 +1,18 @@
-import {
-    map,
-    tap,
-    mergeMap,
-    BehaviorSubject,
-  } from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
+import { map, tap, mergeMap, BehaviorSubject } from "rxjs";
+import { fromFetch } from "rxjs/fetch";
 
-
-class KanaService{
-
+class KanaService {
   constructor() {
-    this.listProduct = new BehaviorSubject([]);    
+    this.listProduct = new BehaviorSubject([]);
     this.dolarValue = new BehaviorSubject(1);
     this.divisa = 1;
 
     this.getListProductFromKana$()
-      .pipe(
-        tap(response => this.listProduct.next(response)),
-      )
+      .pipe(tap((response) => this.listProduct.next(response)))
       .subscribe();
 
     this.getDolarValue$()
-      .pipe(
-        tap(response => this.dolarValue.next(response)),
-      )
+      .pipe(tap((response) => this.dolarValue.next(response)))
       .subscribe();
   }
 
@@ -36,27 +25,25 @@ class KanaService{
     const payload = {
       ...dataQuery,
       query,
-    }
+    };
     const option = {
       method: "POST",
       body: JSON.stringify(payload),
       headers: new Headers({ "content-type": "application/json" }),
-    }
+    };
 
-    const data$ = fromFetch(url, option)
-      .pipe(
-        mergeMap(response => response.json()),
-      )
+    const data$ = fromFetch(url, option).pipe(
+      mergeMap((response) => response.json())
+    );
 
     return data$;
-
   }
 
   /**
    * Metodo que apunta a los productos en backend de kana
    * @returns un observable
    */
-  getListProductFromKana$(limit = 1000){
+  getListProductFromKana$(limit = 1000) {
     const query = `
       query {
         currentPriceList{
@@ -87,22 +74,22 @@ class KanaService{
             }
           }
         }
-      }`
+      }`;
 
-    const data$ = this.getQuery(query)
-      .pipe(
-        map(response => response.data.currentPriceList.products.edges.map(product => {
-
+    const data$ = this.getQuery(query).pipe(
+      map((response) =>
+        response.data.currentPriceList.products.edges.map((product) => {
           const { pricePublished, ...restProduct } = product.node.product;
 
           const productConstruted = {
             ...restProduct,
             price: Number(pricePublished?.priceBase.amount * this.divisa),
-          }
+          };
 
           return productConstruted;
-        })),
-      );
+        })
+      )
+    );
     return data$;
   }
 
@@ -118,11 +105,13 @@ class KanaService{
         }
       }`;
 
-    const data$ = this.getQuery(query)
-      .pipe(
-        map(response => response.data.currentPriceList.officialRate.forSales[1].value),
-        tap(response => this.divisa = response),
-      )
+    const data$ = this.getQuery(query).pipe(
+      map(
+        (response) =>
+          response.data.currentPriceList.officialRate.forSales[1].value
+      ),
+      tap((response) => (this.divisa = response))
+    );
 
     return data$;
   }
