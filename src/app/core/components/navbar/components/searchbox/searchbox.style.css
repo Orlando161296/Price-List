@@ -48,10 +48,26 @@
     cursor: pointer;
 }
 
+@media (max-width: 800px) {
+
+    .search {
+        font-size: 16px;
+    }
+    
+    .boxContainer{
+        border-radius: 35px 35px 0 35px;
+    }
+}
+
 @media (max-width: 570px) {
 
     .search {
         font-size: 16px;
     }
     
+    .boxContainer{
+        border-radius: 35px 35px 0 35px;
+    }
 }
+
+
