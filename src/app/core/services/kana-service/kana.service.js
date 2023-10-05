@@ -1,5 +1,6 @@
 import { map, tap, mergeMap, BehaviorSubject } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
+import { environments } from "../../../../environments/environments";
 
 class KanaService {
   constructor() {
@@ -16,8 +17,13 @@ class KanaService {
       .subscribe();
   }
 
+  /**
+   *Método para reutilizar lineas de código en cuanto al envío de Headers en la consulta del query en la API.
+   * @param { string } query 
+   * @returns { Observable: data$ }
+   */
   getQuery(query) {
-    const url = "https://kana.develop.cecosesola.imolko.net/graphql";
+    const url = environments.baseUrl;
     const dataQuery = {
       operationName: null,
       variables: {},
@@ -40,8 +46,8 @@ class KanaService {
   }
 
   /**
-   * Metodo que apunta a los productos en backend de kana
-   * @returns un observable
+   * Método que consulta los productos en la API, mediante el Query.
+   * @returns { Observable: data$ } Observable
    */
   getListProductFromKana$(limit = 1000) {
     const query = `
@@ -77,22 +83,35 @@ class KanaService {
       }`;
 
     const data$ = this.getQuery(query).pipe(
-      map((response) =>
-        response.data.currentPriceList.products.edges.map((product) => {
-          const { pricePublished, ...restProduct } = product.node.product;
-
-          const productConstruted = {
-            ...restProduct,
-            price: Number(pricePublished?.priceBase.amount * this.divisa),
-          };
-
-          return productConstruted;
-        })
+      map(
+        ({
+          data: {
+            currentPriceList: {
+              products: { edges },
+            },
+          },
+        }) =>
+          edges.map(
+            ({
+              node: {
+                product: { pricePublished, ...restProduct },
+              },
+            }) => ({
+              ...restProduct,
+              price: parseFloat(
+                (pricePublished?.priceBase.amount * this.divisa).toFixed(2)
+              ),
+            })
+          )
       )
     );
     return data$;
   }
 
+  /**
+   * Método que consulta a la API el dollar currency, mediante el envio de un Query.
+   * @returns { Observable: data$ } 
+   */
   getDolarValue$() {
     const query = `
       query{
@@ -107,8 +126,13 @@ class KanaService {
 
     const data$ = this.getQuery(query).pipe(
       map(
-        (response) =>
-          response.data.currentPriceList.officialRate.forSales[1].value
+        ({
+          data: {
+            currentPriceList: {
+              officialRate: { forSales },
+            },
+          },
+        }) => forSales[1].value
       ),
       tap((response) => (this.divisa = response))
     );

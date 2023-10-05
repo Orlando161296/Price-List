@@ -6,7 +6,6 @@ class ShoppingCartService {
 
     constructor() {
         this.localStorageSrv = localStorageShoppingCartService;
-
         this.products = this.localStorageSrv.get() || [];
         this.list = new BehaviorSubject(this.products);
         this.counter = new BehaviorSubject(this.products.length);
