@@ -30,7 +30,7 @@ export class ShoppingCartList extends LitElement {
   }
 
   firstUpdated() {
-    this.shoppingCartSrv.list
+    this.shoppingCartSrv.currentList$
       .pipe(
         takeUntil(this.componentDestroyed$),
         tap(products => this.list = products),
@@ -114,7 +114,7 @@ export class ShoppingCartList extends LitElement {
 
   getProduct(product) {
     const productKana = this.productsMediator.getProductById(product.id);
-    productKana.quantity = product.quantity
+    productKana.quantity = product.quantity;
     return productKana;
   }
 
