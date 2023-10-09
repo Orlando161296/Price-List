@@ -14,7 +14,6 @@ class ProductsMediator {
         tap(response => this.listProduct = response),
         tap(() => this.limit = this.listProduct.length),
         tap(() => this.pagination(18)),
-        tap(() => console.log('Traer lo de kana', this.listProduct))
       )
       .subscribe();
 
