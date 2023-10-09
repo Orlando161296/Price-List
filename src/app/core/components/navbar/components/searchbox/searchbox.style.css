@@ -1,9 +1,14 @@
+::placeholder{
+    color: #F3A100;
+
+}
 .boxContainer {
     background: #FFFF;
     width: 100%;
     height: 40px;
     padding: 0 10px;
     border-radius: 35px;
+    
 }
 
 .elementsContainer {
@@ -21,6 +26,7 @@
     border-radius: 35px;
     font-size: 18px;
     font-weight: 500;
+   
 }
 
 .search:focus {
@@ -38,8 +44,19 @@
 
 .material-icons {
     font-size: 30px;
-    color: #5ccda7;
+    color: #F3A100;
     cursor: pointer;
+}
+
+@media (max-width: 800px) {
+
+    .search {
+        font-size: 16px;
+    }
+    
+    .boxContainer{
+        border-radius: 35px 35px 0 35px;
+    }
 }
 
 @media (max-width: 570px) {
@@ -48,4 +65,9 @@
         font-size: 16px;
     }
     
+    .boxContainer{
+        border-radius: 35px 35px 0 35px;
+    }
 }
+
+

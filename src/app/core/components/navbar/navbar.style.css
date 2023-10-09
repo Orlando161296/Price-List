@@ -1,11 +1,11 @@
 .container-navbar {
-  padding: 20px 20px 10px 20px;
-  background: #5ccda7;
+  padding: 6px 6px 6px 20px;
+  background: #F3A100;
   margin-bottom: 15px;
   box-shadow: 0px 1px 56px -19px rgba(0,0,0,0.76);
   -webkit-box-shadow: 0px 1px 56px -19px rgba(0,0,0,0.76);
   -moz-box-shadow: 0px 1px 56px -19px rgba(0,0,0,0.76);
-
+  
   display: grid;
   place-items: center;
 }
@@ -16,6 +16,22 @@
   align-items: center;
   width: 100%;
   max-width: 1000px;
+}
+/* container:logo de feria */
+.nav-logo-container{
+  display: flex;
+  width: 120px;
+  height:76px;
+  padding: 0 0 ;
+  margin:2px 60px 0 10px;
+  
+  /* background-color: white; */
+}
+/* logo de feria */
+.nav-logo-feria{
+  width: 130px;
+  height: auto;
+  padding: 1px 0 ;
 }
 
 .elements-navbar .searchbox {
@@ -45,18 +61,26 @@
 @media (max-width: 800px) {
 
   .container-navbar {
-    height: 60px; /* 92px cuando aparece el select-categories en el navbar*/
+    height: 130px; /* 92px cuando aparece el select-categories en el navbar*/
     padding: 10px 20px;
   }
-
+ .nav-logo-container{
+  position: relative;
+  top: -70px;
+  
+ }
   .elements-navbar {
+    display: flex;
     flex-direction: column;
+    position: absolute;
+    top: 70px;
   }
 
   .elements-navbar .searchbox {
     position: absolute;
     top: 10px;
-    width: 95%;
+    width: 93%;
+    border-radius: 0 30% 0 0;
   }
 
   .container-navbar .shoppingcart,

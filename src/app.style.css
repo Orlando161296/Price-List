@@ -35,7 +35,9 @@
 .app-container mobile-menu {
     display: none;
 }
-
+svg {
+    fill: #564a00;
+}
 @media (max-width: 800px) {
 
     .app-container #outlet {

@@ -11,7 +11,8 @@
 
 .addButton,
 .button-container {
-    background-color: #f4a534;
+    background-color: #FD4902;
+    color: white;
     width: 170px;
     height: 33px;
     border-radius: 10px;
