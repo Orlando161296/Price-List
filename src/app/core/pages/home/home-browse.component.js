@@ -40,7 +40,7 @@ export class HomeBrowse extends LitElement {
               `;
             })}
           </div>`
-        : html`<loader-component></loader-component>`
+        : html`<loader-component ></loader-component>`
       }
       
       ${
