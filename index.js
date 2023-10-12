@@ -47,3 +47,7 @@ import { FooterComponent } from "./src/app/core/components/footer/footer.compone
 
 // loader
 import { LoaderComponent } from "./src/app/core/components/loader/loader.component";
+
+// buttom price dolar
+import { ButtomPriceDolar} from './src/app/shared/components/buttom-price-dolar/buttom-price-dolar'
+ 

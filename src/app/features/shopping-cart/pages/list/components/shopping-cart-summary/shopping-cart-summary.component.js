@@ -20,6 +20,7 @@ export class ShoppingCartSummary extends LitElement {
 
     render() {
         return html`
+            <buttom-price-dolar></buttom-price-dolar>
             <div class="shopping-cart-summary-container">
                 <div class="summary-header">
                     <h1>Total Carrito</h1>
