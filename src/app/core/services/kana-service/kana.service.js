@@ -3,6 +3,8 @@ import { fromFetch } from "rxjs/fetch";
 import { environments } from "../../../../environments/environments";
 
 class KanaService {
+  
+  
   constructor() {
     this.listProduct = new BehaviorSubject([]);
     this.dolarValue = new BehaviorSubject(1);
@@ -49,7 +51,7 @@ class KanaService {
    * Método que consulta los productos en la API, mediante el Query.
    * @returns { Observable: data$ } Observable
    */
-  getListProductFromKana$(limit = 1000) {
+  getListProductFromKana$(limit = 100) {
     const query = `
       query {
         currentPriceList{
