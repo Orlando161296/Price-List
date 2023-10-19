@@ -43,8 +43,7 @@ export class ProductCard extends LitElement {
         <product-card-button
           class="card-button"
           counter=${this.product.quantity}
-          @increment=${this.quantityChange}
-          @decrement=${this.quantityChange}         
+          @modifyQuantity=${this.quantityChange}
         ></product-card-button>
 
       </div>
