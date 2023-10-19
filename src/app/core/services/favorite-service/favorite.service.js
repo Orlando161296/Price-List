@@ -1,4 +1,6 @@
 import { tap, Subject } from 'rxjs';
+import { shoppingCartService } from '../shopping-cart-service/shopping-cart.service';
+import { productsMediator } from '../productsMediator.service';
 
 class FavoriteService {
     newFavorite$ = new Subject();
@@ -64,10 +66,21 @@ class FavoriteService {
     // Obtiene la lista de productos contenido en localStorage
     getFavorites() {
         const favorites = localStorage.getItem('Favorites');
-        if(favorites) return JSON.parse(favorites);
+        const verifiedProduct = JSON
+                .parse(favorites)
+                .map(product => {
+                    const productKana = this.productsMediator.getProductById(product.id);
+                    productKana.quantity = this.shoppingCartSrv.verifyDoExist(product);
+                    return productKana;
+                });
+        console.log('en favoritos', verifiedProduct);
+        return verifiedProduct;
     }
 
     constructor() {
+
+        this.shoppingCartSrv = shoppingCartService;
+        this.productsMediator = productsMediator;
         // Captura la accion del usuario en otros componentes si quiere almacenar o eliminar de favoritos un producto
         this.newFavorite$
             .pipe(
