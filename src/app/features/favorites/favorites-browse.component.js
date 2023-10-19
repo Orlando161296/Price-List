@@ -5,14 +5,32 @@ import { favoriteService } from "../../core/services/favorite-service/favorite.s
 import { shoppingCartService } from '../../core/services/shopping-cart-service/shopping-cart.service'
 
 import './favorites-browse.styles.css';
+import { filter, tap } from "rxjs";
+import { productsMediator } from "../../core/services/productsMediator.service";
 
 export class FavoritesBrowse extends LitElement {
 
   constructor() {
     super();
     this.favoriteSrv = favoriteService;
-    this.favoriteList = this.favoriteSrv.getFavorites();
     this.shoppingCartSrv = shoppingCartService;
+    this.productsMediator = productsMediator;
+
+    this.loader = false;
+    this.favoriteList = [];
+  
+    this.productsMediator.paginationProducts$
+      .pipe(
+        filter(response => response.length > 0),
+        tap(() => this.favoriteList = this.favoriteSrv.getFavorites()),
+        tap(() => this.loader = true),
+        tap(() => this.requestUpdate()),
+      )
+      .subscribe();
+  }
+
+  firstUpdated() {
+    
   }
 
   render() {
@@ -24,16 +42,21 @@ export class FavoritesBrowse extends LitElement {
           <span>Mis Favoritos</span>
         </div>
 
-        <div class="products">
-          ${this.favoriteList.map(product => {
-            product.style = this.favoriteSrv.verifyProduct(product.id)
-            return html` <product-card
-              counter=${this.getQuantity(product)}
-              @quantityChange=${this.productToShoppingCart}
-              @productFavorite=${this.addProductToFavorites}
-              .product="${product}"></product-card> `;
-          })}
-        </div>
+        ${
+          (this.loader)
+          ? html`
+            <div class="products">
+              ${this.favoriteList.map(product => {
+                product.style = this.favoriteSrv.verifyProduct(product.id)
+                return html`<product-card
+                  @quantityChange=${this.productToShoppingCart}
+                  @productFavorite=${this.addProductToFavorites}
+                  .product="${product}"></product-card>`;
+              })}
+            </div>
+          `
+          : html`<loader-component></loader-component>`
+        }
 
       </div>
       <footer-component></footer-component>
@@ -60,12 +83,12 @@ export class FavoritesBrowse extends LitElement {
    * @returns {number} cantidad del producto pasado
    */
   getQuantity(product){
-    let verifiedProduct = this.shoppingCartSrv.verifyDoExist(product)
+    let verifiedProduct = this.shoppingCartSrv.verifyDoExist(product);
     return verifiedProduct;
   }
 
   goBack(){
-    Router.go("/browse/")
+    Router.go("/browse/");
   }
 
   createRenderRoot() {
