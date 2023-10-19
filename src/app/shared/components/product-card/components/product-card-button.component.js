@@ -11,7 +11,9 @@ export class ProductCardButton extends LitElement {
   };
 
   get input() {
-    return this.renderRoot?.querySelector("#increase") ?? -1;
+    const target = this.renderRoot?.querySelector("#increase") ?? { value: 0 };
+    console.log(target);
+    return target
   }
 
   constructor() {
@@ -53,6 +55,8 @@ export class ProductCardButton extends LitElement {
     const inputValue = this.input.value;
     if(inputValue <= 0) return;
     const quantity = this.counter = inputValue;
+    console.log(" this.counter", this.counter);
+    console.log(" this.counter", {inputValue});
 
     const options = {
       detail: { quantity },
