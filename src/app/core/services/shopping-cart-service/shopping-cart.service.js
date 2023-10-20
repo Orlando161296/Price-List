@@ -20,7 +20,7 @@ class ShoppingCartService {
             .pipe(
                 filter(response => response.length > 0),
                 map(() => this.products.map(product => this.productConstructed(product))),
-                tap(x => console.log(x)),
+              
                 tap(newList => this.currentList = newList),
                 tap(newList => this.currentList$.next(newList)),
                 tap(() => this.calculateTotal()),

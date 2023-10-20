@@ -11,7 +11,9 @@ export class ProductCardButton extends LitElement {
   };
 
   get input() {
-    return this.renderRoot?.querySelector("#increase") ?? -1;
+    const target = this.renderRoot?.querySelector("#increase") ?? { value: 0 };
+    console.log(target);
+    return target
   }
 
   constructor() {
@@ -41,7 +43,7 @@ export class ProductCardButton extends LitElement {
                   @keyup=${this.modifyQuantityByInput}
                   value=${this.counter}
                 >
-                </input>
+                
                 <button @click=${this.increment}>+</button>
               </div>
             `}
@@ -50,34 +52,40 @@ export class ProductCardButton extends LitElement {
   }
 
   modifyQuantityByInput() {
-    const inputValue = Number(this.input.value);
-    if(inputValue < 0) inputValue = 0;
+    const inputValue = this.input.value;
+    if(inputValue <= 0) return;
     const quantity = this.counter = inputValue;
-    console.log(this.counter, inputValue);
+    console.log(" this.counter", this.counter);
+    console.log(" this.counter", {inputValue});
+
     const options = {
       detail: { quantity },
     };
-
+    this.requestUpdate();
     this.dispatchEvent(new CustomEvent('modifyQuantity', options));
   }
 
   increment() {
     this.counter++;
     const quantity = this.counter;
-    console.log(this.counter);
+    this.input.value = this.counter;
     const options = {
       detail: { quantity },
     };
 
     this.dispatchEvent(new CustomEvent('modifyQuantity', options));
+    this.requestUpdate();
   }
 
   decrement() {
     this.counter--;
     const quantity = this.counter;
+    this.input.value = this.counter;
+
     const options = {
       detail: { quantity },
     };
+    this.requestUpdate();
 
     this.dispatchEvent(new CustomEvent('modifyQuantity', options));
   }

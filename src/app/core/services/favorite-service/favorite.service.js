@@ -70,11 +70,11 @@ class FavoriteService {
                 .parse(favorites)
                 .map(product => {
                     const productKana = this.productsMediator.getProductById(product.id);
+                    if(!productKana) return undefined;
                     productKana.quantity = this.shoppingCartSrv.verifyDoExist(product);
                     return productKana;
                 });
-        console.log('en favoritos', verifiedProduct);
-        return verifiedProduct;
+        return verifiedProduct.filter(product => product !== undefined);
     }
 
     constructor() {

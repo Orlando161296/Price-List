@@ -90,7 +90,7 @@ export class HomeBrowse extends LitElement {
   }
 
   getQuantity(product) {
-    let existsProduct = this.shoppingCartSrv.verifyDoExist(product);
+    const existsProduct = this.shoppingCartSrv.verifyDoExist(product);
     return existsProduct;
   }
 
