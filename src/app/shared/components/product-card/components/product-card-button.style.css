@@ -39,6 +39,7 @@
     background-color: transparent;
     text-align: center;
     -moz-appearance: textfield;
+    color: white;
 }
 
 .button-container #increase::-webkit-inner-spin-button,
@@ -52,4 +53,5 @@
     border: none;
     background: transparent;
     cursor: pointer;
+    color: white;
 }
